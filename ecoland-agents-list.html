@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ecoland Agents List</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .search-container {
+      text-align: center;
+      margin: 20px;
+    }
+
+    #searchInput {
+      width: 300px;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">BGLv <span>PORTAL</span></div>
+      <nav>
+        <ul>
+          <li><a href="ecoland.html">Back to Branch</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="search-container">
+    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for names, LOB, or batch...">
+  </section>
+
+  <section class="agents-list">
+    <table id="agentsTable">
+      <thead>
+        <tr>
+          <th>OM Name</th>
+          <th>TL Name</th>
+          <th>Agent Name</th>
+          <th>Batch</th>
+          <th>LOB</th>
+          <th>Role</th>
+          <th>Operator id</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will load here -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Load PapaParse to parse CSV -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+
+  <script>
+    // Search function filtering table rows
+    function searchTable() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const table = document.getElementById("agentsTable");
+      const rows = table.getElementsByTagName("tr");
+
+      for (let i = 1; i < rows.length; i++) { // skip header row
+        const cells = rows[i].getElementsByTagName("td");
+        let match = false;
+        for (let j = 0; j < cells.length; j++) {
+          if (cells[j].textContent.toLowerCase().includes(input)) {
+            match = true;
+            break;
+          }
+        }
+        rows[i].style.display = match ? "" : "none";
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSvsSLb6A0sPEkhg371Iikba1pjzPa6s6_8_zNjQVEsWwDmUZ7C0CfRqLF-RnKNIkNKvvJWhK4L18Qi/pub?output=csv&gid=530084528';
+
+      Papa.parse(csvUrl, {
+        download: true,
+        header: true,
+        complete: function(results) {
+          const data = results.data;
+          const tbody = document.querySelector("#agentsTable tbody");
+          tbody.innerHTML = ''; // clear previous
+
+          data.forEach(row => {
+            if (row['OM Name']) { // ignore empty rows
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td>${row['OM Name']}</td>
+                <td>${row['TL Name']}</td>
+                <td>${row['Agent Name']}</td>
+                <td>${row['BATCH']}</td>
+                <td>${row['LOB']}</td>
+                <td>${row['Role']}</td>
+                <td>${row['Operator id']}</td>
+              `;
+              tbody.appendChild(tr);
+            }
+          });
+        },
+        error: function(err) {
+          console.error('Error loading CSV:', err);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

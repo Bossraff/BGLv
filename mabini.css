@@ -1,0 +1,131 @@
+/* mabini.css — Styles specific to Mabini Branch page */
+
+/* Reset & Base */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Navbar (Same as index) */
+header {
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 24px;
+  color: #00ffff;
+}
+
+.logo span {
+  color: #5a5a5a;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav ul li a.active,
+nav ul li a:hover {
+  color: #0cbf7e;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(to top, #b0ffff, #00ffff);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 80px 20px 100px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Button Group (New) */
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+/* Buttons */
+.btn {
+  background-color: white;
+  color: #2264b0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.btn:hover {
+  background-color: #e0f7ff;
+  color: #1a4e90;
+  transform: translateY(-2px);
+}
+
+/* Hero Image */
+.hero-image {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  border-radius: 15px;
+  margin: 0 auto 20px;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Headings & Info */
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: #003333;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+/* Optional: Reuse Search Bar from index */
+.search-bar {
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.search-bar:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

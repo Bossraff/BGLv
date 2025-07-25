@@ -1,0 +1,368 @@
+/* Reset and Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Navbar */
+header {
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 24px;
+  color: #00ffff;
+}
+
+.logo span {
+  color: #5a5a5a;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+nav ul li a.active,
+nav ul li a:hover {
+  color: #0cbf7e;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(to top, #b0ffff, #00ffff);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 80px 20px 100px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: auto;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.btn {
+  background-color: white;
+  color: #2264b0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Info Section */
+.info {
+  background: #f8f9fa;
+  padding: 80px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.info h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 60px;
+}
+
+/* Roadmap Timeline */
+.info-roadmap {
+  position: relative;
+  padding: 80px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.info-roadmap h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 60px;
+}
+
+/* Vertical timeline line with loading animation */
+@keyframes loadLine {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: calc(100% - 160px);
+  }
+}
+
+/* Base vertical line */
+.roadmap-line {
+  position: absolute;
+  top: 160px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  background-color: #b0ffff;  /* lighter base line */
+  z-index: 0;
+}
+
+/* Progress line that grows with mouse */
+.roadmap-line-progress {
+  position: absolute;
+  top: 160px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  background-color: #00ffff;
+  height: 0;
+  z-index: 1;
+  border-radius: 2px;
+  transition: height 0.1s ease-out;
+}
+
+/* Content Block Styling */
+.content-block {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 60px 0;
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Center dot for each block */
+.content-block::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #00cccc;
+  border: 4px solid white;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* Text & Image */
+.text-box, .image-box {
+  flex: 1 1 45%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.text-box.visible,
+.image-box.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.text-box.visible {
+  transition-delay: 0.2s;
+}
+
+.image-box.visible {
+  transition-delay: 0.4s;
+}
+
+/* Alternating Sides */
+.content-block.bg1 .text-box,
+.content-block.bg3 .text-box,
+.content-block.bg5 .text-box,
+.content-block.bg7 .text-box,
+.content-block.bg9 .text-box {
+  margin-right: 40px;
+}
+
+.content-block.bg2 .text-box,
+.content-block.bg4 .text-box,
+.content-block.bg6 .text-box,
+.content-block.bg8 .text-box {
+  margin-left: 40px;
+}
+
+/* Image */
+.image-box img {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+}
+
+/* Contact Cards */
+.contact-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  color: #2b2b2b;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 200px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0, 255, 255, 0.3);
+}
+
+.card .icon {
+  margin-bottom: 10px;
+}
+
+.card .icon img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .icon img {
+  animation: wiggle 0.5s ease-in-out infinite alternate;
+}
+
+/* Wiggle Animation */
+@keyframes wiggle {
+  0%   { transform: rotate(-3deg) scale(1.05); }
+  100% { transform: rotate(3deg) scale(1.1); }
+}
+
+/* Search Bar */
+.search-bar {
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-bar:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Footer */
+/* Footer Animation Container */
+/* Footer animation section */
+.footer-animation {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  background: transparent;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.footer-animation img {
+  position: absolute;
+  bottom: 0;
+  width: 60px;
+  height: auto;
+}
+
+/* Dino walking left to right */
+.dino {
+  animation: dinoWalk 15s linear infinite;
+  left: -100px;
+}
+
+/* Friend chasing dino */
+.friend {
+  animation: friendRun 15s linear infinite;
+  animation-delay: 1.5s;
+  left: -120px;
+}
+
+/* Balloon floating up while moving right */
+.balloon {
+  width: 40px;
+  animation: balloonFloat 20s linear infinite;
+  left: -60px;
+  bottom: 10px;
+}
+
+@keyframes dinoWalk {
+  0% { left: -100px; }
+  100% { left: 110%; }
+}
+
+@keyframes friendRun {
+  0% { left: -120px; }
+  100% { left: 110%; }
+}
+
+@keyframes balloonFloat {
+  0% { left: -60px; bottom: 10px; }
+  50% { bottom: 60px; }
+  100% { left: 110%; bottom: 20px; }
+}

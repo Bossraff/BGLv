@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QA Team - Bigo Portal</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    section {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .description {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .search-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #searchInput {
+      width: 300px;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">BGLv <span>PORTAL</span></div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+          <li><a href="faqs.html">FAQs</a></li>
+          <li><input type="text" placeholder="Search..." class="search-bar" /></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section>
+    <h1 id="branch-title">QA Team</h1>
+    <p class="description">
+      The Quality Assurance (QA) Team plays a vital role in maintaining and enhancing performance across all departments. 
+      Below is a list of our QA leads and coordinators, categorized by site, batch, and line of business.
+    </p>
+
+    <div class="search-container">
+      <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for names, site, LOB, or batch...">
+    </div>
+
+    <div class="agents-list">
+      <table id="agentsTable">
+        <thead>
+          <tr>
+            <th>QA HEAD Name</th>
+            <th>QAC Name</th>
+            <th>Site</th>
+            <th>Batch</th>
+            <th>LOB</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data will load here -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer style="text-align:center; padding: 20px; background: #f8f9fa; margin-top: 40px;">
+    &copy; 2025 Bigo Portal. All rights reserved.
+  </footer>
+
+  <!-- Load PapaParse -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+
+  <script>
+    function searchTable() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const rows = document.querySelectorAll("#agentsTable tbody tr");
+
+      rows.forEach(row => {
+        const cells = Array.from(row.getElementsByTagName("td"));
+        const match = cells.some(td => td.textContent.toLowerCase().includes(input));
+        row.style.display = match ? "" : "none";
+      });
+    }
+
+    // Helper function: get row value ignoring case and trimming spaces
+    function getRowValue(row, key) {
+      key = key.toLowerCase().trim();
+      for (const k in row) {
+        if (k.toLowerCase().trim() === key) {
+          return row[k]?.trim() || '';
+        }
+      }
+      return '';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSvsSLb6A0sPEkhg371Iikba1pjzPa6s6_8_zNjQVEsWwDmUZ7C0CfRqLF-RnKNIkNKvvJWhK4L18Qi/pub?output=csv&gid=807931264';
+
+      Papa.parse(csvUrl, {
+        download: true,
+        header: true,
+        complete: function(results) {
+          const data = results.data;
+          const tbody = document.querySelector("#agentsTable tbody");
+          tbody.innerHTML = '';
+
+          data.forEach(row => {
+            const head = getRowValue(row, 'QA HEAD');
+            const qac = getRowValue(row, 'QAC');
+            const site = getRowValue(row, 'site');
+            const batch = getRowValue(row, 'BATCH');
+            const lob = getRowValue(row, 'LOB');
+            const role = getRowValue(row, 'Role');
+
+            if (head || qac || site || batch || lob || role) {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td>${head}</td>
+                <td>${qac}</td>
+                <td>${site}</td>
+                <td>${batch}</td>
+                <td>${lob}</td>
+                <td>${role}</td>
+              `;
+              tbody.appendChild(tr);
+            }
+          });
+        },
+        error: function(err) {
+          console.error('Error loading CSV:', err);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
